@@ -1,48 +1,44 @@
 //Creo array immagini
 const imagesArray = [
-    "01.webp",
-    "02.webp",
-    "03.webp",
-    "04.webp",
-    "05.webp"
+    {
+        titolo: "Spiderman",
+        info: "ITEM 1",
+        foto: "01.webp",
+    },
+    {
+        titolo: "Ratchet",
+        info: "ITEM 2",
+        foto: "02.webp",
+    },
+    {
+        titolo: "Fortnite",
+        info: "ITEM 3.",
+        foto: "03.webp",
+    },
+    {
+        titolo: "Il Gatto",
+        info: "ITEM 4.",
+        foto: "04.webp",
+    },
+    {
+        titolo: "The Avengers",
+        info: "ITEM 5",
+        foto: "05.webp",
+    },
 ]
 
-//Creo array con dati letterali associati alle foto con i seguenti dati:
-
-//- url dell’immagine
-//- titolo
-//- descrizione
-
-const dataFoto = [
-    foto1 = {
-      url: 'Stairway to Heaven',
-      titolo: 'Led Zeppelin',
-      descrizione: '1971'
-    },
-    foto2 = {
-        url: 'Stairway to Heaven',
-        titolo: 'Led Zeppelin',
-        descrizione: '1971'
-    },
-    foto3 = {
-        url: 'Stairway to Heaven',
-        titolo: 'Led Zeppelin',
-        descrizione: '1971'
-      },
-      foto4 = {
-          url: 'Stairway to Heaven',
-          titolo: 'Led Zeppelin',
-          descrizione: '1971'
-      },
-    
-  ];
 
 //Creiamo dinamicamente i div con le immagini del carosello
 let itemsContent = '';
 
-for(let i = 0; i < imagesArray.length; i++){
+for (let i = 0; i < imagesArray.length; i++) {
+    let game = imagesArray[i];
     itemsContent += `<div class="item">
-        <img src="./img/${imagesArray[i]}">
+        <img src="./img/${game.foto}">
+		<div class="item-text">
+			<h1>${game.titolo}</h1>
+			<p>${game.info}</p>
+		</div>
     </div>`
 }
 
@@ -65,16 +61,75 @@ const circles = document.getElementsByClassName('circle');
 
 circles[itemActive].classList.add('active');
 
-const prev = document.querySelector('.prev');
-const next = document.querySelector('.next');
+//Funzioni - Precedente, Successivo
 
-next.addEventListener('click', function(){
+function next() {
+    //verifico l'elemento attivo (itemActive)
+    if (itemActive < items.length - 1) {
+        //rimuovo la class active al precendente elemento dell'array items e dell'array circles
+        items[itemActive].classList.remove('active');
+        circles[itemActive].classList.remove('active');
 
-    console.log(itemActive);
-});
+        //incremento il suo valore di 1
+        ++itemActive;
 
-prev.addEventListener('click', function(){
-    console.log(circles);
-})
+        //aggiungo la class active al nuovo elemento dell'array items e dell'array circles
+        items[itemActive].classList.add('active');
+        circles[itemActive].classList.add('active');
+    }
 
+    //ciclo infinito del carosello per il tasto next
+    else {
+        //rimuovo la class active al precendente elemento dell'array items e dell'array circles
+        items[itemActive].classList.remove('active');
+        circles[itemActive].classList.remove('active');
+
+        //imposto il valore al primo elemento dell'array items
+        itemActive = 0;
+
+        //aggiungo la class active al nuovo elemento dell'array items e dell'array circles
+        items[itemActive].classList.add('active');
+        circles[itemActive].classList.add('active');
+    }
+}
+
+function prev() {
+    //verifico l'elemento attivo (itemActive)
+    if (itemActive > 0) {
+        //rimuovo la class active al precendente elemento dell'array items e dell'array circles
+        items[itemActive].classList.remove('active');
+        circles[itemActive].classList.remove('active');
+
+        //decremento il suo valore di 1
+        --itemActive;
+
+        //aggiungo la class active al nuovo elemento dell'array items e dell'array circles
+        items[itemActive].classList.add('active');
+        circles[itemActive].classList.add('active');
+    }
+
+    //ciclo infinito del carosello per il tasto prev
+    else {
+        //rimuovo la class active al precendente elemento dell'array items e dell'array circles
+        items[itemActive].classList.remove('active');
+        circles[itemActive].classList.remove('active');
+
+        //imposto il valore all'ultimo elemento dell'array items
+        itemActive = items.length - 1;
+
+        //aggiungo la class active al nuovo elemento dell'array items e dell'array circles
+        items[itemActive].classList.add('active');
+        circles[itemActive].classList.add('active');
+    }
+}
+
+const prev_button = document.querySelector('.prev');
+const next_button = document.querySelector('.next');
+
+
+next_button.addEventListener('click', next);
+
+prev_button.addEventListener('click', prev);
+
+// 1 - creare un intervallo che esegui la funzione 'next' ogni 5 secondi
 
