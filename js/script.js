@@ -131,5 +131,4 @@ next_button.addEventListener('click', next);
 
 prev_button.addEventListener('click', prev);
 
-// 1 - creare un intervallo che esegui la funzione 'next' ogni 5 secondi
 
